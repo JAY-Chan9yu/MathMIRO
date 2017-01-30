@@ -357,7 +357,6 @@ public class MGameView extends SurfaceView implements Callback {
 						}).setView(textEntryView)
 						.show();
 			} else if(msg.what==1){
-
 				new AlertDialog.Builder(mContext)
 						.setTitle("미                  션 ")
 						.setMessage("다음 숫자를 만드시오 " + stage_clear_num)
