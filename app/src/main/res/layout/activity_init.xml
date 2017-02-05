@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-    <Button
-        android:text="Start game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="83" />
+
+    <ImageButton
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="83"
+        app:srcCompat="@drawable/button1"
         android:id="@+id/StartButton" />
 
-    <Button
-        android:text="Option"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="30" />
+
+    <ImageButton
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="83"
+        app:srcCompat="@drawable/button2"
         android:id="@+id/OptionButton" />
 
-    <Button
-        android:text="Exit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ExitButton" />
+    <LinearLayout
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="30"/>
+
+    <ImageButton
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="83"
+        app:srcCompat="@drawable/button3"
+        android:id="@+id/ExiButton" />
+
+    <LinearLayout
+        android:background="#22c6f1df"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="150"/>
 </LinearLayout>

@@ -2,10 +2,15 @@ package jayflow.game.mathmiro;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 /*********************************** 인트로 관련 액티비티 *****************************************/
 public class IntroActivity extends Activity {
@@ -29,6 +34,7 @@ public class IntroActivity extends Activity {
         // 인트로 화면이므로 타이틀바를 없앤다.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_intro);
+
         init();
         // 2초뒤에 화면 넘어감
         handler.postDelayed(runnable, 2000);
@@ -37,7 +43,6 @@ public class IntroActivity extends Activity {
     public void init() {
         handler = new Handler();
     }
-
     // 인트로 중에 뒤로가기를 누를 경우 핸들러를 끊어버려 아무일 없게 만드는 부분
     // 미설정시 인트로 중 뒤로가기를 누르면 인트로 후에 홈화면이 나옴.
     @Override

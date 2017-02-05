@@ -210,7 +210,6 @@ public class MGameView extends SurfaceView implements Callback {
 		image_array[14] = Bitmap.createScaledBitmap(image_array[14], w_width, w_height, true);
 		image_array[15] = Bitmap.createScaledBitmap(image_array[15], w_width, w_height, true);
 		image_array[17] = Bitmap.createScaledBitmap(image_array[17], w_width, w_height, true);
-
 		image_array[16] = Bitmap.createScaledBitmap(image_array[16], w_width * 10, w_height * 3, true);
 	}
 
