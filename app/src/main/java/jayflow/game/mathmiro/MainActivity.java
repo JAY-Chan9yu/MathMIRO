@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-
 public class MainActivity extends Activity {
     MGameView mgameview;
     MediaPlayer mediaPlayer;
@@ -86,9 +85,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 1, 0, "다음 스테이지");
-        menu.add(0, 2, 0, "다시시작");
-        menu.add(0, 3, 0, "나가기");
+        getMenuInflater().inflate(R.menu.menu_dialog, menu);
         return true;
     }
 
@@ -103,13 +100,13 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case 1:  	 // QuitGame
-                //mgameview.NextGame();        // ①
+            case R.id.nextgame:  	 // QuitGame
+                mgameview.NextGame();        // ①
                 break;
-            case 2:      // PauseGame
-                //mgameview.RestartGame();
+            case R.id.restart:      // PauseGame
+                mgameview.RestartGame();
                 break;
-            case 3:      // PauseGame
+            case R.id.exit:      // PauseGame
                 System.exit(0);
                 break;
         }
