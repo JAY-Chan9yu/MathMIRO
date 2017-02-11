@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/initbackground"
     >
 
     <LinearLayout
-        android:background="#22c6f1df"
         android:layout_width="fill_parent"
         android:layout_height="0px"
         android:layout_weight="83" />
 
     <ImageButton
-        android:background="#22c6f1df"
+        android:background="#00000000"
         android:layout_width="fill_parent"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:layout_weight="83"
-        app:srcCompat="@drawable/button1"
+        android:src="@drawable/button1"
         android:id="@+id/StartButton" />
 
     <LinearLayout
-        android:background="#22c6f1df"
         android:layout_width="fill_parent"
         android:layout_height="0px"
         android:layout_weight="30" />
 
     <ImageButton
-        android:background="#22c6f1df"
+        android:background="#00000000"
         android:layout_width="fill_parent"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:layout_weight="83"
-        app:srcCompat="@drawable/button2"
+        android:src="@drawable/button2"
         android:id="@+id/OptionButton" />
 
     <LinearLayout
-        android:background="#22c6f1df"
         android:layout_width="fill_parent"
         android:layout_height="0px"
         android:layout_weight="30"/>
 
     <ImageButton
-        android:background="#22c6f1df"
+        android:background="#00000000"
         android:layout_width="fill_parent"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:layout_weight="83"
-        app:srcCompat="@drawable/button3"
-        android:id="@+id/ExiButton" />
+        android:src="@drawable/button3"
+        android:id="@+id/ExitButton" />
 
     <LinearLayout
-        android:background="#22c6f1df"
         android:layout_width="fill_parent"
         android:layout_height="0px"
         android:layout_weight="150"/>

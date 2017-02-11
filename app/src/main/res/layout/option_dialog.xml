@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+      <RadioButton
+            android:text="수학미로찾기"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/optionGame1" />
+
+        <RadioButton
+            android:text="색깔미로찾기"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/optionGame2" />
+
+        <RadioButton
+            android:text="동물미로찾기(준비중)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/optionGame3" />
+    </RadioGroup>
+
+    <Button
+        android:text="확인"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/optionCheckbutton" />
+</LinearLayout>

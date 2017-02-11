@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -16,10 +19,14 @@ import android.util.*;
 import android.view.*;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MGameView extends SurfaceView implements Callback {
     static GameThread mThread;                    // GameThread
     SurfaceHolder mHolder;                        // SurfaceHolder
     static Context mContext;                      // Context
+
+    public static int gameOption = 0; // 게임종류 선택 변수
 
     // 화면의 폭과 높이
     int width, height;
@@ -30,12 +37,16 @@ public class MGameView extends SurfaceView implements Callback {
     // 계산 관련 배열
     public int calcul_arr[] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
+    // 색깔미로찾기 용 랜덤 어레이
+    int []numRandomeArray = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
     // 캐릭 터 좌표
     int character_x = 5;
     int character_y = 5;
 
     boolean init_map_flag = true;
     int result = 0; // 계산결과
+    int displayResult = 0;
     int stage_num = 0; // 스테이지 넘버
     int stage_clear_num = 0; // 스테이지 클리어 넘버
     // Game map
@@ -154,23 +165,61 @@ public class MGameView extends SurfaceView implements Callback {
         w_width = width / 10;
         w_height = height / 13;
 
-        bitmap_upload(w_width, w_height);
+/*        bitmap_upload(w_width, w_height);
 
         // 캐릭터 폭, 높이
         cw = image_array[0].getWidth() / 2;
         ch = image_array[0].getHeight() / 2;
+        */
 
         setFocusable(true);     // View가 Focus받기
     }
 
+    public void getGmeoption(int a) {
+        gameOption = a;
+        Log.i("test", "test" + gameOption);
+    }
+
+    public void getRandomNum() {
+        int ran = 0;    //랜덤값을 받을 변수를 만듭니다.
+        boolean cheak;    // 비교하기 위해 boolean형 변수를 만듭니다.
+        Random r = new Random();    // Random형 객체를 만듭니다.
+
+        for (int i = 0; i < numRandomeArray.length; i++) {    // 배열의 크기만큼 for문을 돌립니다.
+            ran = r.nextInt(10);
+            cheak = true;    // i문이 돌 때마다 cheak를 true로 만듭니다.
+            for (int j = 0; j < i; j++) {    //if문 때문에 j를 i값만큼 돌립니다.
+                if (numRandomeArray[j] == ran) {
+                    // arr배열의 방은 다 비어있는 상태이고 위에서 nextInt를 해야 하나씩 들어갑니다.
+                    // 그러므로 i의 값만큼 배열에  들어가있는 것입니다.
+                    // for문을 돌리면서  방금 받은 random값과 배열에 들어있는 값들을 비교하여 같은게 있으면
+                    i--;    // i의 값을 하나 줄여 한 번 더 돌게 합니다.
+                    cheak = false;    // 목적과는 다르게 같은 값이 나왔으므로 cheak를 false로 만듭니다.
+                }
+            }
+
+            if (cheak) numRandomeArray[i] = (int)ran;    // ran에 받은 값을 arr[i]방에 넣습니다.
+        }
+    }
+
     /****************************************** Resource 업로드 함수 *****************************************************/
     void bitmap_upload(int w_width, int w_height) {
-        int []res = new int[] {R.drawable.zero, R.drawable.one, R.drawable.two, R.drawable.tree, R.drawable.four, R.drawable.five,
-                            R.drawable.six, R.drawable.seven, R.drawable.eight, R.drawable.nine, R.drawable.plus, R.drawable.minus,
-                            R.drawable.mul,	R.drawable.divi, R.drawable.hunter, R.drawable.banner};
-
-        for(int i = 0; i < 16; i ++) {
-            image_array[i] = BitmapFactory.decodeResource(getResources(), res[i]);
+        if(gameOption == 0) {
+            int[] res = new int[]{R.drawable.zero, R.drawable.one, R.drawable.two, R.drawable.tree, R.drawable.four, R.drawable.five,
+                    R.drawable.six, R.drawable.seven, R.drawable.eight, R.drawable.nine, R.drawable.plus, R.drawable.minus,
+                    R.drawable.mul, R.drawable.divi, R.drawable.hunter, R.drawable.banner};
+            for(int i = 0; i < 16; i ++) {
+                image_array[i] = BitmapFactory.decodeResource(getResources(), res[i]);
+            }
+        } else if(gameOption == 1) {
+            int[] res = new int[]{R.drawable.redb, R.drawable.orangeb, R.drawable.yellowb, R.drawable.greenb, R.drawable.blueb, R.drawable.puppleb,
+                    R.drawable.mintb, R.drawable.skyblueb, R.drawable.grayb, R.drawable.pinkb, R.drawable.c1, R.drawable.c2, R.drawable.c3, R.drawable.c4,
+                    R.drawable.hunter, R.drawable.banner};
+            getRandomNum();
+            for(int i = 0; i < 16; i ++) {
+                if(i < 10) image_array[i] = BitmapFactory.decodeResource(getResources(), res[numRandomeArray[i]]);
+                else image_array[i] = BitmapFactory.decodeResource(getResources(), res[i]);
+            }
         }
 
         // 화면 크기에 맞게 비트맵 크기 변경
@@ -183,7 +232,9 @@ public class MGameView extends SurfaceView implements Callback {
     /******************  SurfaceView가 생성될 때 실행되는 부분******************/
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+
         mThread.start(); // Thread 실행
+
     }
 
     /******************  SurfaceView가 바뀔 때 실행되는 부분 *******************/
@@ -386,7 +437,7 @@ public class MGameView extends SurfaceView implements Callback {
 
 
         /************************** 게임이 실행되는 함수(or 이미지출력) *********************************/
-        public void Draw_Map(Canvas canvas) {
+        public void Draw_Game(Canvas canvas) {
             // 처음에만 랜덤으로 숫자 및 기호 배열에 넣어주기 위해
             if(init_map_flag == true) {
                 //랜덤으로 수학기호 및 숫자맵 생성
@@ -402,10 +453,22 @@ public class MGameView extends SurfaceView implements Callback {
             }
             init_map_flag = false;
 
+            // 현재값, 미션값 출력하기 위한 텍스트 paint
+            Paint textPaint = new Paint();
+            textPaint.setTextSize(75);
+            textPaint.setColor(Color.WHITE);
+            textPaint.setTypeface(Typeface.create((String)null, Typeface.BOLD));
+            textPaint.setAntiAlias(true);
+            textPaint.setStyle(Paint.Style.FILL);
+
             // try,catch 해줘야  NullPointerException 에러가 나지 않는다.
             try{
+
                 // 상단 배너(?) 출력
                 canvas.drawBitmap(image_array[15], null, new Rect(0, 0, (w_width * 9) + w_width, (w_height * 2) + w_height), null);
+                canvas.drawText("미션 값 : " + stage_clear_num ,w_width - 30, w_height - 30, textPaint);
+                canvas.drawText("현재 값 : " + displayResult ,w_width - 40, (w_height * 3) - 50, textPaint);
+
 
                 // 캐릭터의 시작위치에 대한 값 저장
                 if(calcul_arr[9] == -1 && map[stage_num][character_y][character_x] < 10) calcul_arr[9] = map[stage_num][character_y][character_x];
@@ -469,6 +532,8 @@ public class MGameView extends SurfaceView implements Callback {
                     }
                 }
             }
+            displayResult = result;
+
             if(result == stage_clear_num) {
                 stage_clear_num = -1;
                 result = 0;
@@ -508,11 +573,17 @@ public class MGameView extends SurfaceView implements Callback {
             Canvas canvas = null;
             //서페이스 뷰에서 인텐트 사용하여 액티비티로 넘어가는 방법
             //Intent intent = new Intent(mContext.getApplicationContext(), MainActivity.class);
+
+            bitmap_upload(w_width, w_height);
+            // 캐릭터 폭, 높이
+            cw = image_array[0].getWidth() / 2;
+            ch = image_array[0].getHeight() / 2;
+
             while (isLoop) {
                 canvas = mHolder.lockCanvas();
                 try {
                     synchronized (mHolder) {
-                        Draw_Map(canvas);
+                        Draw_Game(canvas);
                         if(game_clear() == 1) handler.sendEmptyMessage(0);
                     } // sync
                 } finally {

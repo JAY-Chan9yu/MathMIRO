@@ -4,11 +4,14 @@ import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -32,6 +35,15 @@ public class MainActivity extends Activity {
 
         mgameview = (MGameView)findViewById(R.id.mGameView);
         backPressCloseHandler = new BackPressCloseHandler(this);
+
+        Intent intent = getIntent();
+        int optionGame = 0;
+        //optionGame = intent.getExtras().getInt("gameOption");
+        int optionGame2 = intent.getIntExtra("optionGame", optionGame);
+
+        //mgameview.gameOption = intent.getExtras().getInt("gameOption");
+        mgameview.getGmeoption(optionGame2);
+        Log.i("int화면", "main "+ optionGame2);
 
         /*mediaPlayer = new MediaPlayer();
         try
@@ -107,6 +119,8 @@ public class MainActivity extends Activity {
                 mgameview.RestartGame();
                 break;
             case R.id.exit:      // PauseGame
+                ActivityCompat.finishAffinity(this);
+                System.runFinalizersOnExit(true);
                 System.exit(0);
                 break;
         }
